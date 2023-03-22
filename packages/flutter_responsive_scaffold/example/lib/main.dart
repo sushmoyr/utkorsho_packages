@@ -40,16 +40,54 @@ class Home extends StatelessWidget {
     return ResponsiveScaffold(
       scaffoldKey: scaffoldKey,
       backgroundColor: Colors.blueGrey.shade100,
-      topNavigationBar: AppBar(
-        leading: IconButton(
-          onPressed: () {
-            if (scaffoldKey.currentState?.hasDrawer == true) {
-              scaffoldKey.currentState?.openDrawer();
-            }
-          },
-          icon: Icon(Icons.menu),
-        ),
+      body: ResponsiveLayout(
+        weight: 1,
+        config: {
+          Breakpoints.expanded: (context) => SizedBox.expand(
+                child: Container(
+                  color: Colors.red,
+                ),
+              ),
+          Breakpoints.medium: (context) => SizedBox.expand(
+                child: Container(
+                  color: Colors.redAccent,
+                ),
+              ),
+        },
       ),
+      secondaryBody: ResponsiveLayout(
+        weight: 2,
+        config: {
+          Breakpoints.expanded: (context) => SizedBox.expand(
+                child: Container(
+                  color: Colors.blue,
+                ),
+              ),
+          Breakpoints.medium: (context) => SizedBox.expand(
+                child: Container(
+                  color: Colors.blueAccent.shade400,
+                ),
+              ),
+        },
+      ),
+      primaryBottom: ResponsiveLayout(
+        config: {
+          Breakpoints.none: (_) => AppBar(
+                elevation: 0,
+              )
+        },
+      ),
+      gutterSpacing: 8,
+      topNavigationBar: AppBar(
+          // leading: IconButton(
+          //   onPressed: () {
+          //     if (scaffoldKey.currentState?.hasDrawer == true) {
+          //       scaffoldKey.currentState?.openDrawer();
+          //     }
+          //   },
+          //   icon: Icon(Icons.menu),
+          // ),
+          ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {},
         child: Text("Hello"),
@@ -60,6 +98,14 @@ class Home extends StatelessWidget {
         ),
         child: Container(
           color: Colors.blue,
+        ),
+      ),
+      secondaryNavigation: ConstrainedBox(
+        constraints: BoxConstraints(
+          maxWidth: 100,
+        ),
+        child: Container(
+          color: Colors.green,
         ),
       ),
     );

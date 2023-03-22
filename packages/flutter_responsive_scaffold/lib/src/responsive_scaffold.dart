@@ -68,24 +68,57 @@ class ResponsiveScaffold extends StatelessWidget {
       endSideNavigation = secondaryNavigation;
     }
 
-    Widget bottomWidgets = Padding(
-      padding: (primaryBottom != null || secondaryBottom != null)
-          ? EdgeInsets.only(bottom: gutterSpacing)
-          : EdgeInsets.zero,
-      child: Row(
-        children: [
-          if (primaryBottom != null)
-            Expanded(
-              flex: primaryBottom!.weight,
-              child: primaryBottom!,
+    bool hasBottom = (primaryBottom != null || secondaryBottom != null);
+
+    Widget bottomWidgets = AnimatedSize(
+      duration: kThemeChangeDuration,
+      child: hasBottom
+          ? Padding(
+              padding: hasBottom
+                  ? EdgeInsets.only(bottom: gutterSpacing)
+                  : EdgeInsets.zero,
+              child: Row(
+                children: [
+                  if (primaryBottom != null)
+                    Expanded(
+                      flex: primaryBottom!.weight,
+                      child: primaryBottom!,
+                    ),
+                  if (secondaryBottom != null) ...[
+                    SizedBox(width: gutterSpacing),
+                    Expanded(
+                      flex: secondaryBottom!.weight,
+                      child: secondaryBottom!,
+                    )
+                  ],
+                ],
+              ),
+            )
+          : const SizedBox.shrink(),
+    );
+
+    bool hasFullBody = body != null && secondaryBody != null;
+
+    Widget bodyWidgets = Row(
+      children: [
+        if (body != null)
+          Expanded(
+            flex: body!.weight,
+            child: AnimatedSize(
+              duration: kThemeAnimationDuration,
+              child: body ?? const SizedBox.shrink(),
             ),
-          if (secondaryBottom != null)
-            Expanded(
-              flex: secondaryBottom!.weight,
-              child: secondaryBottom!,
+          ),
+        if (hasFullBody) SizedBox(width: gutterSpacing),
+        if (secondaryBody != null)
+          Expanded(
+            flex: secondaryBody!.weight,
+            child: AnimatedSize(
+              duration: kThemeAnimationDuration,
+              child: secondaryBody ?? const SizedBox.shrink(),
             ),
-        ],
-      ),
+          ),
+      ],
     );
 
     return Scaffold(
@@ -116,6 +149,7 @@ class ResponsiveScaffold extends StatelessWidget {
                     // First the bottom widgets
                     bottomWidgets,
                     // Then the body widgets
+                    Expanded(child: bodyWidgets)
                   ],
                 ),
               ),
