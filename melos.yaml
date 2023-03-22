@@ -1,0 +1,8 @@
+name: utkorsho_packages
+
+packages:
+  - packages/**
+
+scripts:
+  analyze:
+    exec: dart analyze .
