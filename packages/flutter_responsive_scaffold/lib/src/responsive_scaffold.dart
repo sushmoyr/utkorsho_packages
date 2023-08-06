@@ -109,7 +109,7 @@ class ResponsiveScaffold extends StatelessWidget {
 
     Widget bodyWidgets = Row(
       children: [
-        if (body != null)
+        if (body != null && body!.hasActiveLayout(context))
           Expanded(
             flex: body!.weight,
             child: AnimatedSize(
@@ -118,7 +118,7 @@ class ResponsiveScaffold extends StatelessWidget {
             ),
           ),
         if (hasFullBody) SizedBox(width: gutterSpacing),
-        if (secondaryBody != null)
+        if (secondaryBody != null && secondaryBody!.hasActiveLayout(context))
           Expanded(
             flex: secondaryBody!.weight,
             child: AnimatedSize(

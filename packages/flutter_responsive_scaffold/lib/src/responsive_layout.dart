@@ -8,19 +8,23 @@ class ResponsiveLayout extends StatelessWidget {
   final Map<Breakpoint, WidgetBuilder> config;
   final int weight;
 
+  Widget? _findActiveLayout(BuildContext context) {
+    Widget? activeLayout;
+    config.forEach((key, value) {
+      if (key.isActive(context)) {
+        activeLayout = value(context);
+      }
+    });
+    return activeLayout;
+  }
+
   @override
   Widget build(BuildContext context) {
-    Widget findActiveLayout() {
-      Widget? activeLayout;
-      config.forEach((key, value) {
-        if (key.isActive(context)) {
-          activeLayout = value(context);
-        }
-      });
-      return activeLayout ?? const SizedBox.shrink();
-    }
+    return _findActiveLayout(context) ?? const SizedBox.shrink();
+  }
 
-    return findActiveLayout();
+  bool hasActiveLayout(BuildContext context) {
+    return _findActiveLayout(context) != null;
   }
 }
 //
