@@ -125,50 +125,52 @@ class ResponsiveScaffold extends StatelessWidget {
 
     return Material(
       color: backgroundColor ?? Theme.of(context).scaffoldBackgroundColor,
-      child: ConstrainedBox(
-        constraints: maxScaffoldConstraints ?? const BoxConstraints.expand(),
-        child: Scaffold(
-          key: scaffoldKey,
-          backgroundColor:
-              backgroundColor ?? Theme.of(context).scaffoldBackgroundColor,
-          floatingActionButton: floatingActionButton,
-          appBar: topNavigationBar,
-          bottomNavigationBar: bottomNavigationBar,
-          drawer: drawer,
-          endDrawer: endDrawer,
-          body: SizedBox.expand(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                /// Left navigation pane
-                AnimatedSize(
-                  duration: kThemeChangeDuration,
-                  alignment: Alignment.topLeft,
-                  child: sideNavigation ?? const SizedBox.shrink(),
-                ),
+      child: Center(
+        child: ConstrainedBox(
+          constraints: maxScaffoldConstraints ?? const BoxConstraints.expand(),
+          child: Scaffold(
+            key: scaffoldKey,
+            backgroundColor:
+                backgroundColor ?? Theme.of(context).scaffoldBackgroundColor,
+            floatingActionButton: floatingActionButton,
+            appBar: topNavigationBar,
+            bottomNavigationBar: bottomNavigationBar,
+            drawer: drawer,
+            endDrawer: endDrawer,
+            body: SizedBox.expand(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  /// Left navigation pane
+                  AnimatedSize(
+                    duration: kThemeChangeDuration,
+                    alignment: Alignment.topLeft,
+                    child: sideNavigation ?? const SizedBox.shrink(),
+                  ),
 
-                /// Body area pane
-                Expanded(
-                  child: Padding(
-                    padding: contentPadding,
-                    child: Column(
-                      children: [
-                        // First the bottom widgets
-                        bottomWidgets,
-                        // Then the body widgets
-                        Expanded(child: bodyWidgets)
-                      ],
+                  /// Body area pane
+                  Expanded(
+                    child: Padding(
+                      padding: contentPadding,
+                      child: Column(
+                        children: [
+                          // First the bottom widgets
+                          bottomWidgets,
+                          // Then the body widgets
+                          Expanded(child: bodyWidgets)
+                        ],
+                      ),
                     ),
                   ),
-                ),
 
-                /// Right navigation pane
-                AnimatedSize(
-                  duration: kThemeChangeDuration,
-                  alignment: Alignment.topRight,
-                  child: endSideNavigation ?? const SizedBox.shrink(),
-                ),
-              ],
+                  /// Right navigation pane
+                  AnimatedSize(
+                    duration: kThemeChangeDuration,
+                    alignment: Alignment.topRight,
+                    child: endSideNavigation ?? const SizedBox.shrink(),
+                  ),
+                ],
+              ),
             ),
           ),
         ),
