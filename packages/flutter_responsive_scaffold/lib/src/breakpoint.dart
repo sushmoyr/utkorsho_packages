@@ -15,6 +15,13 @@ class Breakpoint {
 
     return screenWidth >= minWidth && screenWidth < maxWidth;
   }
+
+  bool isMinActive(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    double minWidth = this.minWidth ?? 0;
+
+    return screenWidth >= minWidth;
+  }
 }
 
 class Breakpoints {

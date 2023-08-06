@@ -26,6 +26,8 @@ class ResponsiveScaffold extends StatelessWidget {
     this.gutterSpacing = 24,
     this.contentPadding = const EdgeInsets.all(20),
     this.maxScaffoldConstraints,
+    this.drawerBreakpoint,
+    this.endDrawerBreakpoint,
   }) : super(key: key);
 
   // All the window panes
@@ -51,12 +53,16 @@ class ResponsiveScaffold extends StatelessWidget {
   final double gutterSpacing;
   final EdgeInsets contentPadding;
   final BoxConstraints? maxScaffoldConstraints;
+  final Breakpoint? endDrawerBreakpoint;
+  final Breakpoint? drawerBreakpoint;
 
   @override
   Widget build(BuildContext context) {
     Widget? drawer;
     Widget? sideNavigation;
-    if (Breakpoints.compact.isActive(context)) {
+    Breakpoint endBreakpoint = endDrawerBreakpoint ?? Breakpoints.compact;
+    Breakpoint drawerBreakpoint = this.drawerBreakpoint ?? Breakpoints.compact;
+    if (drawerBreakpoint.isMinActive(context)) {
       drawer = primaryNavigation;
     } else {
       sideNavigation = primaryNavigation;
@@ -64,7 +70,7 @@ class ResponsiveScaffold extends StatelessWidget {
 
     Widget? endDrawer;
     Widget? endSideNavigation;
-    if (Breakpoints.compact.isActive(context)) {
+    if (endBreakpoint.isMinActive(context)) {
       endDrawer = secondaryNavigation;
     } else {
       endSideNavigation = secondaryNavigation;
